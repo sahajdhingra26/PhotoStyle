@@ -1,46 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
-
-
-
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/GridLayout1"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:columnCount="3"
-    android:rowCount="3"
-    android:orientation="horizontal"
-    tools:context=".HomeActivity" >
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:columnWidth="100dp"
+    android:gravity="center"
+    android:verticalSpacing="0dp"
+    android:horizontalSpacing="0dp"
+    android:stretchMode="columnWidth"
+    android:numColumns="3"
+    android:scrollbars="vertical"
 
+    >
 
-    <ImageButton
-        android:id="@+id/img1"
-        android:layout_columnSpan="1"
-        android:layout_rowSpan="1"
-        android:layout_gravity="fill"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_person_black_24dp" />
-    <ImageButton
-        android:id="@+id/img2"
-        android:layout_columnSpan="1"
-        android:layout_rowSpan="2"
-        android:layout_gravity="fill"
-        android:layout_width="fill_parent"
-
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_person_black_24dp" />
-    <ImageButton
-        android:id="@+id/img3"
-        android:layout_columnSpan="1"
-        android:layout_rowSpan="3"
-        android:layout_gravity="fill"
-        android:layout_width="fill_parent"
-
-        android:layout_height="match_parent"
-
-        android:src="@drawable/ic_person_black_24dp" />
-</GridLayout>
+</GridView>
