@@ -1,30 +1,35 @@
 package com.comp90018.photostyle;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
-
-import android.util.Log;
-
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.comp90018.photostyle.helpers.UserList;
+import com.pixplicity.easyprefs.library.Prefs;
+
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @BindView(R2.id.input_email) EditText _emailText;
-    @BindView(R2.id.input_password) EditText _passwordText;
-    @BindView(R2.id.btn_login) Button _loginButton;
-    @BindView(R2.id.link_signup) TextView _signupLink;
+    @BindView(R.id.input_email) EditText _emailText;
+    @BindView(R.id.input_password) EditText _passwordText;
+    @BindView(R.id.btn_login) Button _loginButton;
+    @BindView(R.id.link_signup) TextView _signupLink;
+    APIInterface apiInterface;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,13 +56,14 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+        apiInterface = APIClient.getClient2().create(APIInterface.class);
     }
 
     public void login() {
         Log.d(TAG, "Login");
 
         if (!validate()) {
-            onLoginFailed();
+            onLoginFailed("error 1");
             return;
         }
 
@@ -74,25 +80,52 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
+        // TODO: Implement your own signup logic here.
+
+        try {
+            Call<UserList> call2 = apiInterface.loginUser(email, password);
+            call2.enqueue(new Callback<UserList>() {
+                @Override
+                public void onResponse(Call<UserList> call2, Response<UserList> response) {
+
+                    UserList userList = response.body();
+                    if(userList.getSuccess()==1){
+                        onLoginSuccess(userList.getEmail());
                     }
-                }, 3000);
+                    else if(userList.getSuccess()==0){
+                        onLoginFailed("Error! Please try again");
+
+                    }
+                    progressDialog.dismiss();
+
+
+                }
+
+                @Override
+                public void onFailure(Call<UserList> call, Throwable t) {
+                    call.cancel();
+                    onLoginFailed("error 2");
+                    progressDialog.dismiss();
+
+                }
+            });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
+                Intent intent = new Intent(this, MainActivityNew.class);
+                startActivity(intent);
                 this.finish();
             }
         }
@@ -104,15 +137,20 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    public void onLoginSuccess(String email) {
+        Prefs.putString("email", email);
+        Prefs.putBoolean("loggedIn", true);
         _loginButton.setEnabled(true);
-        Intent intent = new Intent(this, HomeActivity.class);
+
+        Intent intent = new Intent(this, MainActivityNew.class);
         startActivity(intent);
 
     }
 
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+    public void onLoginFailed(String message) {
+        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+        Prefs.putString("email", "");
+        Prefs.putBoolean("loggedIn", false);
 
         _loginButton.setEnabled(true);
     }
