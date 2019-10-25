@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comp90018.photostyle.R;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ public class CustomAdapter extends BaseAdapter {
 
     private Context context;
     public static ArrayList<Model> itemLabelArrayList;
+    public String typeBox="";
 
 
     public CustomAdapter(Context context, ArrayList<Model> itemLabelArrayList) {
@@ -36,6 +39,7 @@ public class CustomAdapter extends BaseAdapter {
 
         return position;
     }
+
 
     @Override
     public int getCount() {
@@ -61,8 +65,8 @@ public class CustomAdapter extends BaseAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.lv_item, null, true);
 
-            holder.checkBox = (CheckBox) convertView.findViewById(R.id.cb);
-            holder.tvItemLabel = (TextView) convertView.findViewById(R.id.animal);
+            holder.checkBox = (RadioButton) convertView.findViewById(R.id.cb);
+            //holder.tvItemLabel = (TextView) convertView.findViewById(R.id.textView1);
 
             convertView.setTag(holder);
         }else {
@@ -71,10 +75,11 @@ public class CustomAdapter extends BaseAdapter {
         }
 
 
-        holder.checkBox.setText("Checkbox "+position);
-        holder.tvItemLabel.setText(itemLabelArrayList.get(position).getItemLabel());
+        holder.checkBox.setText(itemLabelArrayList.get(position).getItemLabel());
+        //holder.tvItemLabel.setText(itemLabelArrayList.get(position).getItemLabel());
 
         holder.checkBox.setChecked(itemLabelArrayList.get(position).getSelected());
+
 
         holder.checkBox.setTag(R.integer.btnplusview, convertView);
         holder.checkBox.setTag( position);
@@ -85,12 +90,16 @@ public class CustomAdapter extends BaseAdapter {
 
                 View tempview = (View) holder.checkBox.getTag(R.integer.btnplusview);
                 Integer pos = (Integer)  holder.checkBox.getTag();
-                Toast.makeText(context, "Checkbox "+pos+" clicked!", Toast.LENGTH_SHORT).show();
+
 
                 if(itemLabelArrayList.get(pos).getSelected()){
+                    Toast.makeText(context, "Checkbox "+pos+" unselected!", Toast.LENGTH_SHORT).show();
                     itemLabelArrayList.get(pos).setSelected(false);
-                }else {
+
+                } else if(!itemLabelArrayList.get(pos).getSelected()) {
+                    Toast.makeText(context, "Checkbox "+pos+" selected!", Toast.LENGTH_SHORT).show();
                     itemLabelArrayList.get(pos).setSelected(true);
+                    Prefs.putString(getTypeBox(),itemLabelArrayList.get(pos).getItemLabel());
                 }
 
             }
@@ -101,9 +110,16 @@ public class CustomAdapter extends BaseAdapter {
 
     private class ViewHolder {
 
-        protected CheckBox checkBox;
+        protected RadioButton checkBox;
         private TextView tvItemLabel;
 
+    }
+
+    public void setTypeBox(String typeBox){
+        this.typeBox=typeBox;
+    }
+    public String getTypeBox(){
+        return typeBox;
     }
 
 }
