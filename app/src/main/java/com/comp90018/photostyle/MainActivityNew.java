@@ -12,13 +12,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -37,8 +37,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 
 import com.google.android.gms.location.LocationListener;
@@ -80,6 +79,8 @@ public class MainActivityNew extends AppCompatActivity
 
             permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
             permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            permissions.add(Manifest.permission.CAMERA);
 
             permissionsToRequest = permissionsToRequest(permissions);
 

@@ -9,16 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.EditText;
+
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +31,7 @@ import com.comp90018.photostyle.APIInterface;
 import com.comp90018.photostyle.R;
 import com.comp90018.photostyle.helpers.ImageAdapter;
 import com.comp90018.photostyle.helpers.ImageList;
-import com.comp90018.photostyle.helpers.UserList;
+
 import com.comp90018.photostyle.helpers.WeatherList;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -87,8 +87,8 @@ public class HomeFragment extends Fragment {
                 WeatherList weatherList = response.body();
 
                 location.setText(weatherList.getName());
-                temp.setText(getCelcius(weatherList.getMain().getTemp())+"C");
-                minmax.setText(getCelcius(weatherList.getMain().getTempMin())+"C - "+getCelcius(weatherList.getMain().getTempMax())+"C");
+                temp.setText(getCelcius(weatherList.getMain().getTemp())+"\u00B0"+"C");
+                minmax.setText(getCelcius(weatherList.getMain().getTempMin())+"\u00B0"+"C - "+getCelcius(weatherList.getMain().getTempMax())+"\u00B0"+"C");
                 weather_details.setText(weatherList.getWeather().get(0).getMain());
                 humidity.setText("Humidity "+weatherList.getMain().getHumidity()+"%");
                 int season = weatherList.getWeather().get(0).getId();
@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
 
 
 
-                                //gridView.setAdapter(adapter);
+
 
                                 gridView.setAdapter(new ImageAdapter(getActivity(), images,imageLabels));
 

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,10 +24,10 @@ import com.comp90018.photostyle.APIInterface;
 import com.comp90018.photostyle.R;
 import com.comp90018.photostyle.helpers.ImageAdapter;
 import com.comp90018.photostyle.helpers.ImageList;
-import com.comp90018.photostyle.helpers.UserList;
+
 import com.pixplicity.easyprefs.library.Prefs;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment  {
 
 
 
-                        //gridView.setAdapter(adapter);
+
                         gridView.setAdapter(new ImageAdapter(getActivity(), images,imageLabels));
 
                         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

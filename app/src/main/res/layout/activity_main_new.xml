@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:backgroundTint="@color/colorFloatingPoint"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="@+id/nav_view"
         app:srcCompat="@drawable/ic_camera" />

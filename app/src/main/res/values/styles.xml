@@ -1,30 +1,68 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-    </style>
+	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
 
-    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/accent</item>
+	<style name="NewDialog" parent="android:Theme.Dialog">
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowTitleStyle">@null</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+		<item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+		<item name="android:backgroundDimEnabled">true</item>
+		<item name="android:background">@android:color/transparent</item>
+	</style>
 
-        <item name="android:windowBackground">@color/primary</item>
+	<style name="CustomButton">
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
 
-        <item name="colorControlNormal">@color/iron</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
-        <item name="android:textColorHint">@color/iron</item>
+	<style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorFloatingPoint</item>
+		<item name="android:windowBackground">@color/colorPrimary</item>
+		<item name="colorControlNormal">@android:color/white</item>
+		<item name="colorControlActivated">@android:color/white</item>
+		<item name="colorControlHighlight">@android:color/white</item>
+		<item name="android:textColorHint">@android:color/white</item>
 
-        <item name="colorButtonNormal">@color/primary_darker</item>
-        <item name="android:colorButtonNormal">@color/primary_darker</item>
-    </style>
+		<item name="colorButtonNormal">@color/colorPrimaryDark</item>
+		<item name="android:colorButtonNormal">@color/colorPrimaryDark</item>
+	</style>
 
-    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
-        <item name="colorAccent">@color/white</item>
-        <item name="android:textColorPrimary">@color/iron</item>
-        <item name="android:background">@color/primary</item>
-    </style>
+
+	<style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+		<item name="colorAccent">@color/colorPrimary</item>
+		<item name="android:textColorPrimary">@android:color/white</item>
+		<item name="android:background">@color/colorPrimary</item>
+	</style>
+
+	<style name="showcase_title" parent="TextAppearance.ShowcaseView.Title.Light">
+		<item name="android:textColor">#deffffff</item>
+	</style>
+
+	<style name="showcase_text" parent="TextAppearance.ShowcaseView.Detail.Light">
+		<item name="android:textColor">#8affffff</item>
+	</style>
+
+
+	<style name="showcase_theme" parent="ShowcaseView">
+		<item name="sv_backgroundColor">@color/colorPrimary</item>
+		<item name="sv_showcaseColor">@color/colorPrimaryDark</item>
+		<item name="sv_buttonText">Close</item>
+		<item name="sv_titleTextAppearance">@style/showcase_title</item>
+		<item name="sv_detailTextAppearance">@style/showcase_text</item>
+	</style>
+
+
 
 </resources>
