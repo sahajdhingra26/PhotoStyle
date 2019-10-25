@@ -13,11 +13,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import androidx.appcompat.app.AlertDialog;
+
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.comp90018.photostyle.R;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -133,5 +136,26 @@ public class MyHelper {
 			e.printStackTrace();
 		}
 		return bmp;
+	}
+
+
+	public static void saveImage(Bitmap finalBitmap, String image_name) {
+
+		String root = Environment.getExternalStorageDirectory().toString();
+		File myDir = new File(root);
+		myDir.mkdirs();
+		String fname = "Image-" + image_name+ ".jpg";
+		File file = new File(myDir, fname);
+		if (file.exists()) file.delete();
+		Prefs.putString("src",root+"/"+fname);
+		Log.d("LOAD", root + fname);
+		try {
+			FileOutputStream out = new FileOutputStream(file);
+			finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
